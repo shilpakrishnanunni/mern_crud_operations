@@ -12,11 +12,28 @@
 <body>
     <h3>hello there</h3>
     <div>
+        <ul class="errands">  
+            <% for(var i=0; i<errands.length; i++) {%>    
+                <li class="errand">      
+                    <span><%= errands[i].errand_name %></span>      
+                    <span><%= errands[i].details %></span>    
+                </li>  
+            <% } %>
+        </ul>    
+    </div>
+    <div>
         <form action="/errands" method="POST">  
             <input type="text" placeholder="errand_name" name="errand_name">  
             <input type="text" placeholder="details" name="details">  
             <button type="submit">Submit</button>
         </form>
     </div>
+    <div>
+        <h5>Update an entry</h5>
+        <button id="update">Um, Actually.</button>
+    </div>
+    <footer>
+        <script src="main.js"></script>
+    </footer>
 </body>
 </html>
