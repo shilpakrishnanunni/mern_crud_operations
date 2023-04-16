@@ -1,14 +1,15 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const routes = require('./src/routes')
+// const routes = require('./src/routes')
 // const mongoose = require('mongoose')
 const { MongoClient } = require('mongodb')
-const Sequelize = require('sequelize');
+// const Sequelize = require('sequelize');
+require('dotenv').config()
 
 const app = express();
 const port = process.env.PORT || 3000;
-const url = 'mongodb://admin:adminpasswrd@localhost:27017/?authMechanism=DEFAULT&authSource=admin'
-const db_name = 'errands_db'
+const url = process.env.DB_URL
+const db_name = process.env.DB_NAME
 
 MongoClient.connect(url, (err, database) => {
     if (err) return console.log(err)
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: true })) // for form data
 app.use(express.json())
 app.use(express.static('public'))
 
-routes(app)
+// routes(app)
 
 // app.get('/', (req, res) => {
 //     // res.send('hello world')
