@@ -58,10 +58,11 @@ app.get('/', (req, res) => {
 
 app.put('/errands', (req, res) => {
     try {
+        console.log('qqqqqqqqq',req.body)
         const errandsCollection = db.collection('errands')
-        errandsCollection.findOneAndUpdate({ errand_name: "Bilbo Baggins" }, {
+        errandsCollection.findOneAndUpdate({ errand_name: req.body.old_errand_name }, {
             $set: {
-                errand_name: req.body.errand_name,
+                errand_name: req.body.old_errand_name,
                 details: req.body.details
             }
         }, {
@@ -69,7 +70,22 @@ app.put('/errands', (req, res) => {
             upsert: true
         }, (err, result) => {
             if (err) return res.send(err)
-            res.send(result)
+            console.log(result)
+            res.send(result) // don't think this is being used anywhere
+            // res.render('index.ejs',{errands:result})
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.delete('/errands', (req, res) => {
+    try {
+        const errandsCollection = db.collection('errands')
+        errandsCollection.findOneAndDelete({ errand_name: req.body.errand_name }, (err, result) => {
+            if (err) return res.send(500, err)
+            console.log('spider attack')
+            res.send('killed by a giant spider') // this isn't being used anywhere right now
         })
     } catch (err) {
         console.log(err)
