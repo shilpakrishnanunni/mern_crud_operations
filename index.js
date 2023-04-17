@@ -1,98 +1,115 @@
-const express = require('express')
-const bodyParser = require('body-parser')
+const express = require('express');
+const bodyParser = require('body-parser');
 // const routes = require('./src/routes')
-// const mongoose = require('mongoose')
-const { MongoClient } = require('mongodb')
+const mongoose = require('mongoose');
+// const { MongoClient } = require('mongodb');
 // const Sequelize = require('sequelize');
-require('dotenv').config()
+const { Errand } = require('./models')
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-const url = process.env.DB_URL
-const db_name = process.env.DB_NAME
+const url = process.env.DB_URL;
+const dbName = process.env.DB_NAME;
+const dbAuthString = process.env.DB_STRING;
 
-MongoClient.connect(url, (err, database) => {
-    if (err) return console.log(err)
-    db = database.db(db_name)
-    app.listen(port, () => {
-        console.log('App is listening on port 3000.')
-    })
-})
+// MongoClient.connect(`${url}${dbAuthString}`, (err, database) => {
+//     if (err) return console.log(err);
+//     db = database.db(dbName);
+//     app.listen(port, () => {
+//         console.log('App is listening on port 3000.');
+//     });
+// });
 
-app.set('view engine', 'ejs')
-app.use(express.urlencoded({ extended: true })) // for form data
-app.use(express.json())
-app.use(express.static('public'))
+main().catch(err => console.log(err));
 
-// routes(app)
+async function main() {
+    await mongoose.connect(`${url}${dbName}${dbAuthString}`,
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+    // const errandOne = new Errand({ errand_name: 'testerrand', details: 'testdetails' });
+    // await errandOne.save();
+    // console.log('kkkkkk',errandOne.errand_name);
+    // console.log('gggggggggg',errandOne.errandstatement());
+};
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error: "));
+db.once("open", () => {
+    console.log("Database connected successfully");
+});
+
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true })); // for form data
+app.use(express.json());
+app.use(express.static('public'));
+
+app.listen(3000, () => {
+    console.log("Server is running at port 3000");
+});
+
+// routes(app);
 
 // app.get('/', (req, res) => {
-//     // res.send('hello world')
-//     res.sendFile(__dirname + '/index.html')
-// })
+//     // res.send('hello world');
+//     res.sendFile(__dirname + '/index.html');
+// });
 
 
 app.post('/errands', async (req, res) => {
     try {
-        const errandsCollection = db.collection('errands')
-        const result = await errandsCollection.insertOne(req.body)
-        console.log('Document inserted with _id: ', result.insertedId);
-        res.redirect('/')
+        const errand = new Errand(req.body);
+        await errand.save();
+        console.log('Document inserted with _id: ', errand._id);
+        res.redirect('/');
     } catch (err) {
-        console.log(err)
-        res.status(500).send('error inserting entry into database')
-    }
-})
+        console.log(err);
+        res.status(500).send('error inserting entry into database');
+    };
+});
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     try {
-        const errandsCollection = db.collection('errands')
-        let cursor = errandsCollection.find().toArray((err, result) => {
-            if (err) return console.log(err)
-            res.render('index.ejs', { errands: result })
+        const errands = await Errand.find({});
+        res.render('index.ejs', { errands: errands })
+    } catch (err) {
+        console.log(err);
+    };
+});
+
+app.put('/errands', async (req, res) => {
+    try {
+        await Errand.updateOne({ errand_name: req.body.old_errand_name }, { details: req.body.details })
+            .then(result => {
+                console.log('updated entry:', result)
+                return res.send(result)
+            })
+            .catch(error => {
+                console.log('updateOne Error: ', error)
+            })
+        // .finally(() => {
+        //     db.close()
+        // })
+    } catch (err) {
+        console.log('app.put Error: ', err);
+    };
+});
+
+app.delete('/errands', async (req, res) => {
+    try {
+        await Errand.findOneAndDelete({ errand_name: req.body.errand_name })
+        .then(result => {
+            console.log('deleted entry',result)
+            return res.send(result)
         })
     } catch (err) {
-        console.log(err)
-    }
-})
-
-app.put('/errands', (req, res) => {
-    try {
-        console.log('qqqqqqqqq',req.body)
-        const errandsCollection = db.collection('errands')
-        errandsCollection.findOneAndUpdate({ errand_name: req.body.old_errand_name }, {
-            $set: {
-                errand_name: req.body.old_errand_name,
-                details: req.body.details
-            }
-        }, {
-            sort: { _id: -1 },
-            upsert: true
-        }, (err, result) => {
-            if (err) return res.send(err)
-            console.log(result)
-            res.send(result) // don't think this is being used anywhere
-            // res.render('index.ejs',{errands:result})
-        })
-    } catch (err) {
-        console.log(err)
-    }
-})
-
-app.delete('/errands', (req, res) => {
-    try {
-        const errandsCollection = db.collection('errands')
-        errandsCollection.findOneAndDelete({ errand_name: req.body.errand_name }, (err, result) => {
-            if (err) return res.send(500, err)
-            console.log('spider attack')
-            res.send('killed by a giant spider') // this isn't being used anywhere right now
-        })
-    } catch (err) {
-        console.log(err)
-    }
-})
+        console.log(err);
+    };
+});
 
 // app.listen(3000, () => {
-//     console.log('App is listening on port 3000.')
-// })
+//     console.log('App is listening on port 3000.');
+// });
 

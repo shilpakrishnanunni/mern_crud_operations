@@ -2,7 +2,7 @@ let del = document.getElementById('delete');
 let update = document.getElementById('update');
 
 update.addEventListener('click', () => {
-    console.log('llllllll')
+    console.log('update eventListener')
     let updateErrandName = document.getElementById('update_name_input').value
     let updateDetails = document.getElementById('update_details').value
     fetch('errands', {
@@ -16,7 +16,7 @@ update.addEventListener('click', () => {
     })
         .then((response) => {
             if (response.ok) {
-                console.log(`kkkkkkkkkkk`)
+                console.log(`main.js/update: then block`)
                 window.location.reload()
                 return response.json()
             }
@@ -31,11 +31,12 @@ update.addEventListener('click', () => {
 })
 
 del.addEventListener('click', () => {
+    let updateErrandName = document.getElementById('update_name_input').value
     fetch('errands', {
         method: 'delete',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            'errand_name':'Gandalf2'
+            'errand_name':updateErrandName
         })
     })
     .then((res) => {
