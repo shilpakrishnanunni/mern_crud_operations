@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
 const errandSchema = new mongoose.Schema({
     errand_name: {
@@ -20,7 +21,7 @@ errandSchema.methods.errandstatement = function errandstatement() {
     console.log('inside', errandDeets);
     return errandDeets
 };
-const Errand = mongoose.model('Errand', errandSchema);
+export const Errand = mongoose.model('Errand', errandSchema);
 
-module.exports = { Errand };
+// module.exports = { Errand };
 

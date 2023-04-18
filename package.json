@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "uses expressjs, body-parser, possibly mongodb to build a basic set of RESTful APIs for CRUD operations",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "test": "\"echo 'Running tests...'\"",

@@ -1,11 +1,17 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+// const express = require('express');
+// const bodyParser = require('body-parser');
 // const routes = require('./src/routes')
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 // const { MongoClient } = require('mongodb');
 // const Sequelize = require('sequelize');
-const { Errand } = require('./models')
-require('dotenv').config();
+// const { Errand } = require('./models')
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import { Errand } from './models.js';
+import express from 'express';
+import mongoose from 'mongoose';
+dotenv.config();
+// require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000;
