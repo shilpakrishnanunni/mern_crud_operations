@@ -2,30 +2,25 @@
 // const bodyParser = require('body-parser');
 // const routes = require('./src/routes')
 // const mongoose = require('mongoose');
-// const { MongoClient } = require('mongodb');
-// const Sequelize = require('sequelize');
 // const { Errand } = require('./models')
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import { Errand } from './models.js';
+import { Errand } from './src/models/models.js';
 import express from 'express';
+import { engine } from 'express-handlebars';
 import mongoose from 'mongoose';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 dotenv.config();
-// require('dotenv').config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
+const dbAuthString = process.env.DB_STRING;
+const dbName = process.env.DB_NAME;
 const port = process.env.PORT || 3000;
 const url = process.env.DB_URL;
-const dbName = process.env.DB_NAME;
-const dbAuthString = process.env.DB_STRING;
-
-// MongoClient.connect(`${url}${dbAuthString}`, (err, database) => {
-//     if (err) return console.log(err);
-//     db = database.db(dbName);
-//     app.listen(port, () => {
-//         console.log('App is listening on port 3000.');
-//     });
-// });
 
 main().catch(err => console.log(err));
 
@@ -47,21 +42,32 @@ db.once("open", () => {
     console.log("Database connected successfully");
 });
 
-app.set('view engine', 'ejs');
+app.engine('hbs', engine(
+    {
+        layoutsDir: __dirname + '/src/views/layouts',
+        partialsDir: __dirname + '/src/views/partials',
+        extname: 'hbs',
+        defaultLayout: 'planB'
+    }
+))
+app.set('view engine', 'hbs');
+app.set('views', './src/views')
 app.use(express.urlencoded({ extended: true })); // for form data
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('src/public'));
 
-app.listen(3000, () => {
-    console.log("Server is running at port 3000");
+app.listen(port, () => {
+    console.log(`Server is running at port ${port}`);
 });
 
 // routes(app);
 
-// app.get('/', (req, res) => {
-//     // res.send('hello world');
-//     res.sendFile(__dirname + '/index.html');
-// });
+app.get('/', async (req, res) => {
+    // res.send('hello world');
+    const errands = await Errand.find({}).lean()
+    // res.render('home', { layout: 'main',variable: 'so posh' });
+    res.render('home', { layout: 'main', variable: errands, listExists: true });
+});
 
 
 app.post('/errands', async (req, res) => {
@@ -106,10 +112,10 @@ app.put('/errands', async (req, res) => {
 app.delete('/errands', async (req, res) => {
     try {
         await Errand.findOneAndDelete({ errand_name: req.body.errand_name })
-        .then(result => {
-            console.log('deleted entry',result)
-            return res.send(result)
-        })
+            .then(result => {
+                console.log('deleted entry', result)
+                return res.send(result)
+            })
     } catch (err) {
         console.log(err);
     };
@@ -118,4 +124,3 @@ app.delete('/errands', async (req, res) => {
 // app.listen(3000, () => {
 //     console.log('App is listening on port 3000.');
 // });
-

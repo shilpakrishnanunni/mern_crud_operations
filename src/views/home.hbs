@@ -1,0 +1,11 @@
+<h3>Being Ye Olde Liste Of Stuffe</h3>
+{{> goodStuff}}
+{{> badStuff}}
+<h4>I'm passing a list here from index.js ooh fancy: </h4>
+{{#if listExists}}
+<ul>
+    {{#each variable}}
+    <li>{{this.errand_name}}</li>
+    {{/each}}
+</ul>
+{{/if}}
