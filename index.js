@@ -31,10 +31,6 @@ async function main() {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-    // const errandOne = new Errand({ errand_name: 'testerrand', details: 'testdetails' });
-    // await errandOne.save();
-    // console.log('kkkkkk',errandOne.errand_name);
-    // console.log('gggggggggg',errandOne.errandstatement());
 };
 
 const db = mongoose.connection;
@@ -45,17 +41,17 @@ db.once("open", () => {
 
 app.engine('hbs', engine(
     {
-        layoutsDir: __dirname + '/src/views/layouts',
-        partialsDir: __dirname + '/src/views/partials',
+        layoutsDir: __dirname + '/views/layouts',
+        partialsDir: __dirname + '/views/partials',
         extname: 'hbs',
         defaultLayout: 'planB'
     }
 ))
 app.set('view engine', 'hbs');
-app.set('views', './src/views')
+app.set('views', './views')
 app.use(express.urlencoded({ extended: true })); // for form data
 app.use(express.json());
-app.use(express.static('src/public'));
+app.use(express.static('public'));
 
 app.listen(port, () => {
     console.log(`Server is running at port ${port}`);
