@@ -6,7 +6,9 @@
 import axios from 'axios';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import { CatFact,Errand } from './src/models/models.js';
+import db from './src/config/database.js'
+import { CatFact } from './src/models/catfacts.js';
+import { Errand } from './src/models/errands.js';
 import express from 'express';
 import { engine } from 'express-handlebars';
 import mongoose from 'mongoose';
@@ -14,30 +16,11 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 dotenv.config();
 
+const app = express();
+
+const port = process.env.PORT || 3001;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-const app = express();
-const dbAuthString = process.env.DB_STRING;
-const dbName = process.env.DB_NAME;
-const port = process.env.PORT || 3001;
-const url = process.env.DB_URL;
-
-main().catch(err => console.log(err));
-
-async function main() {
-    await mongoose.connect(`${url}${dbName}${dbAuthString}`,
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-};
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error: "));
-db.once("open", () => {
-    console.log("Database connected successfully");
-});
 
 app.engine('hbs', engine(
     {
