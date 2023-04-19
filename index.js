@@ -3,9 +3,10 @@
 // const routes = require('./src/routes')
 // const mongoose = require('mongoose');
 // const { Errand } = require('./models')
+import axios from 'axios';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import { Errand } from './src/models/models.js';
+import { CatFact,Errand } from './src/models/models.js';
 import express from 'express';
 import { engine } from 'express-handlebars';
 import mongoose from 'mongoose';
@@ -19,7 +20,7 @@ const __dirname = dirname(__filename);
 const app = express();
 const dbAuthString = process.env.DB_STRING;
 const dbName = process.env.DB_NAME;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const url = process.env.DB_URL;
 
 main().catch(err => console.log(err));
@@ -64,9 +65,13 @@ app.listen(port, () => {
 
 app.get('/', async (req, res) => {
     // res.send('hello world');
-    const errands = await Errand.find({}).lean()
-    // res.render('home', { layout: 'main',variable: 'so posh' });
-    res.render('home', { layout: 'main', variable: errands, listExists: true });
+    const errands = await Errand.find({}).lean();
+    const count = await CatFact.count();
+    let random = Math.floor(Math.random() * count);
+    const [fact] = await CatFact.find({}).skip(random).limit(1).lean();
+    // console.log([fact])
+    // res.render('home', { layout: 'main'});
+    res.render('home', { layout: 'main', variable: errands, listExists: true, catfact:fact.fact });
 });
 
 

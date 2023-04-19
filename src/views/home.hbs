@@ -1,11 +1,30 @@
-<h3>Being Ye Olde Liste Of Stuffe</h3>
-{{> goodStuff}}
-{{> badStuff}}
-<h4>I'm passing a list here from index.js ooh fancy: </h4>
-{{#if listExists}}
-<ul>
-    {{#each variable}}
-    <li>{{this.errand_name}}</li>
-    {{/each}}
-</ul>
-{{/if}}
+{{> navbar}}
+
+{{> sidebar}}
+
+<div class="main">
+    <h3>Being Ye Olde Liste Of Stuffe</h3>
+    <div class="flex-container">
+        <div class="flex-item" style="flex-grow:2;">
+            {{> showtable}}
+        </div>
+        <div class="flex-item">
+            {{> catfact}}
+        </div>
+        <div class="flex-item">
+            {{> badStuff}}
+        </div>
+        <div class="flex-item">
+            {{> updatedelete}}
+        </div>
+        <div class="flex-item">
+            {{> goodStuff}}
+        </div>
+
+
+        <div class="flex-item">
+            <h4>Duis pulvinar magna at velit laoreet, vel pellentesque enim facilisis. Integer id lorem convallis lorem
+                tempus accumsan at eget dolor. Nam cursus purus id urna volutpat hendrerit.</h4>
+        </div>
+    </div>
+</div>

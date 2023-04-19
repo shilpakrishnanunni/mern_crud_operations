@@ -4,6 +4,45 @@
     padding: 0;
 }
 
+.mysidebar {
+    height: 100%;
+    width: 400px;
+    position: fixed;
+    z-index: 1;
+    background-color: rgb(142, 197, 159);
+    /* top: 0; */
+    left: 0;
+}
+
+.mysidebar a {
+    color: aliceblue;
+    font-size: 4rem;
+    font-family: 'Nanum Pen Script', cursive;
+}
+
+.main {
+    margin-left: 400px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* align-items: baseline; */
+    align-content: stretch;
+
+}
+.flex-item {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: calc(100%/3);
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+.flex-item .tableclass {
+    flex-grow:2;
+}
 h3 {
     font-size: 3rem;
     margin: 4px;
@@ -12,15 +51,12 @@ h3 {
     color: rgb(28, 51, 51);
 }
 
-li {
+.listitem {
     font-size: 2rem;
-    width: 700px;
+    /* width: 500px; */
     margin: 4px;
     padding: 4px;
-    list-style: none
-}
-
-.listitem {
+    list-style: none;
     color: rgb(47, 45, 56);
     background-color: rgb(253, 224, 238);
     font-family: 'Nanum Pen Script', cursive;
@@ -28,4 +64,36 @@ li {
 
 .listitem:last-of-type {
     color: orange;
+}
+
+.myform {
+    background-color: rgb(231, 243, 229);
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+.myform label {
+    /* background-color: rgb(116, 170, 107); */
+    color: rgb(100, 141, 93);
+    font-weight: bold;
+    padding: 4px;
+    text-transform: uppercase;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1em;
+}
+.myform button {
+    background-color: rgb(100, 141, 93);
+    color: rgb(231, 243, 229);
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 20%;
+}
+.mytable li{
+    font-size: 1em;
+}
+.catfacts {
+    font-size: 3em;
+    font-family: 'Nanum Pen Script', cursive;
+    color: rgb(226, 43, 73);
 }

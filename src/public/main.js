@@ -1,5 +1,6 @@
 let del = document.getElementById('delete');
 let update = document.getElementById('update');
+let del2 = document.getElementById('delete-from-table');
 
 update.addEventListener('click', () => {
     console.log('update eventListener')

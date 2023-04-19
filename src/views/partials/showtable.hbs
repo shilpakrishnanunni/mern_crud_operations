@@ -1,0 +1,19 @@
+<h4>I'm passing a list here from index.js ooh fancy: </h4>
+{{#if listExists}}
+<table class="mytable highlight responsive-table">
+    <thead>
+        <th>ERRAND</th>
+        <th>DETAILS</th>
+    </thead>
+    <tbody>
+        {{#each variable}}
+        <tr>
+            <td>{{this.errand_name}}</td>
+            <td> {{this.details}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+
+</table>
+{{/if}}
+<script src="main.js"></script>
