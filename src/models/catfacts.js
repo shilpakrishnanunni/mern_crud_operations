@@ -6,4 +6,5 @@ const catfactSchema = new mongoose.Schema({
         required:true
     }
 });
-export const CatFact = mongoose.model('CatFact',catfactSchema);
+const CatFact = mongoose.model('CatFact',catfactSchema);
+export default CatFact;
