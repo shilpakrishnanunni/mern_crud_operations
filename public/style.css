@@ -4,13 +4,14 @@
     padding: 0;
 }
 
+
 .mysidebar {
     height: 100%;
-    width: 400px;
+    width: 250px;
     position: fixed;
     z-index: 1;
-    background-color: rgb(142, 197, 159);
-    
+    background-color: rgb(156, 226, 176);
+
     left: 0;
 }
 
@@ -21,7 +22,7 @@
 }
 
 .main {
-    margin-left: 400px;
+    margin-left: 250px;
 }
 
 .flex-container {
@@ -31,6 +32,7 @@
     align-content: stretch;
 
 }
+
 .flex-item {
     flex-grow: 1;
     flex-shrink: 0;
@@ -40,9 +42,11 @@
     border: 1px solid black;
     box-sizing: border-box;
 }
+
 .flex-item .tableclass {
-    flex-grow:2;
+    flex-grow: 2;
 }
+
 h3 {
     font-size: 3rem;
     margin: 4px;
@@ -82,18 +86,63 @@ h3 {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 1em;
 }
+
 .myform button {
     background-color: rgb(100, 141, 93);
     color: rgb(231, 243, 229);
     font-weight: bold;
-    padding: 5px;
+    /* padding: 5px; */
+    padding: 5px 10px 5px 10px;
     border-radius: 20%;
 }
-.mytable li{
+
+.mytable li {
     font-size: 1em;
 }
+
 .catfacts {
     font-size: 3em;
     font-family: 'Nanum Pen Script', cursive;
     color: rgb(226, 43, 73);
+}
+
+.chatform {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 0.25rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    height: 3rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+}
+
+.chatinput {
+    border: none;
+    padding: 0 1rem;
+    flex-grow: 1;
+    border-radius: 2rem;
+    margin: 0.25rem;
+}
+
+.chatinput:focus {
+    outline: none;
+}
+
+.chatform button {
+    background: #333;
+    border: none;
+    padding: 0 1rem;
+    margin: 0.25rem;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+}
+#chatmessages {
+    list-style-type: none; margin: 0; padding: 0;
+}
+#chatmessages > li {
+    padding: 0.5rem 1rem;
 }

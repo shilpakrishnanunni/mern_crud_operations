@@ -1,12 +1,20 @@
 <div class="navbar-fixed">
-<nav>
-    <div class="nav-wrapper">
-        <a href="" class="brand-logo"><i class="material-icons">cloud</i>LOGO</a>
-    <ul class="right hide-on-med-and-down">
-        <li><a href="">Home</a></li>
-        <li><a href="">Product</a></li>
-        <li><a href="">Contact Us</a></li>
-    </ul>
-    </div>
-</nav>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo"><i class="material-icons">cloud</i>LOGO</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/">Home</a></li>
+                <li><a class='dropdown-trigger btn' href="#" data-target='dropdown1'>Log In</a></li>
+                <ul id='dropdown1' class='dropdown-content'>
+                    <li><a href="#!">one</a></li>
+                    <li><a href="#!">two</a></li>
+                </ul>
+                <li><a href="">Product</a></li>
+                <li><a href="">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
 </div>
+<script>
+jQuery('.dropdown-trigger').dropdown();
+</script>

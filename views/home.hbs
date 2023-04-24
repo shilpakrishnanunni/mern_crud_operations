@@ -3,16 +3,25 @@
 {{> sidebar}}
 
 <div class="main">
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>  
+    </div>
     <h3>Being Ye Olde Liste Of Stuffe</h3>
     <div class="flex-container">
         <div class="flex-item" style="flex-grow:2;">
-            {{> showsavings}}
+            {{> loginform}}
         </div>
         <div class="flex-item">
             {{> catfact}}
         </div>
         <div class="flex-item">
-            {{> insertIncome}}
+            {{> badStuff}}
         </div>
         <div class="flex-item">
             {{> updatedelete}}
@@ -28,3 +37,6 @@
         </div>
     </div>
 </div>
+<footer>
+    <script src="js/home.js"></script>
+</footer>
