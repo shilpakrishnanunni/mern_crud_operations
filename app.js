@@ -3,6 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import checkConnection from './db.js';
 import Contact from './models/contacts.js';
+import mountRoutes from './routes.js';
 
 const app = express();
 
@@ -14,32 +15,10 @@ await checkConnection();
 
 const PORT = process.env.PORT;
 
+mountRoutes(app);
+
 app.get('/', (req, res)=>{
     res.status(200).send("Hello World");
-});
-
-app.post('/add-contact', async(req, res) => {
-    const { name, email } = req.body;
-    console.log(name,email)
-    const contact = await Contact.create({
-        name: name,
-        email: email
-    });
-    console.log(contact)
-    return res.json({success: true});
-});
-
-app.get("/get-contact", async(req, res) => {
-    const id = req.query.id;
-    const contact = await Contact.findById(id).exec();
-    console.log(contact);
-    return res.json({data: contact});
-});
-
-app.get("/get-all-contacts", async(req, res) => {
-    const contact = await Contact.find({}).exec();
-    console.log(contact);
-    return res.json({data: contact});
 });
 
 app.listen(PORT, () => {
