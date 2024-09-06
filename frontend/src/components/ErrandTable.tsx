@@ -1,4 +1,4 @@
-
+import "../style.css";
 
 const ErrandTable = (props) => {
     return (
