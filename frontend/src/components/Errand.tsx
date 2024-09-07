@@ -1,6 +1,7 @@
 import ErrandForm from "./ErrandForm";
 import ErrandTable from "./ErrandTable";
 import "../style.css";
+import hooks from "../hooks.tsx";
 
 const HeaderComponent = () => {
     return (
@@ -11,8 +12,12 @@ const HeaderComponent = () => {
 }
 
 const Errand = (props) => {
+    const { data, isLoading, isError } = hooks.useErrandTableData();
+    console.log("data",data);
+
     return (
         <div className="main">
+            <HeaderComponent/>
             <div className="errand-container">
                 <ErrandForm />
                 <ErrandTable />

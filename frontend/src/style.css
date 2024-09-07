@@ -5,11 +5,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .errand-container {
-    width: 500px;
-    height: 700px;
+    width: 700px;
+    height: 500px;
     background-color: brown;
 }
 
@@ -41,4 +42,6 @@
 .table-container {
     background-color: bisque;
     margin: 10px;
+    border: 1px solid black;
+    border-radius: 25px;
 }
