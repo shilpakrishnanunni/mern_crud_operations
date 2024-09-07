@@ -12,7 +12,7 @@ const checkConnection = async() => {
             console.log(`Mongoose connected to database: ${db.name} at ${db.host}:${db.port}`)
         });
 
-        db.on('error', () => {
+        db.on('error', (err) => {
             console.log(`Mongoose connection error: ${err}`);
         });
 
@@ -21,7 +21,11 @@ const checkConnection = async() => {
         });
 
     } catch (error) {
-        console.error(`Error connecting to the database: ${error.message}`);
+        let errorMessage = "Default error message";
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+        console.error(`Error connecting to the database: ${errorMessage}`);
     }
 };
 

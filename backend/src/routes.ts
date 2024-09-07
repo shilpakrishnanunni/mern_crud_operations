@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { addErrand, deleteErrand, endErrand, getAllErrands } from "./controller.js";
+import { Express, Router } from "express";
+import { addErrand, deleteErrand, endErrand, getAllErrands } from "./controller";
 
 
-const mountRoutes = (app) => {
+const mountRoutes = (app: Express) => {
     const router = Router();
 
     router.get("/get-all-errands", getAllErrands);

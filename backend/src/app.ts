@@ -1,14 +1,15 @@
 import 'dotenv/config';
-import express from "express";
+import express, { Express, Request, Response } from "express";
+import cors from "cors";
 import morgan from "morgan";
-import checkConnection from './db.js';
-import Contact from './models/contacts.js';
-import mountRoutes from './routes.js';
+import checkConnection from './db.ts';
+import mountRoutes from './routes.ts';
 
-const app = express();
+const app: Express = express();
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+app.use(cors());
 app.use(morgan('tiny'));
 
 await checkConnection();
@@ -17,7 +18,7 @@ const PORT = process.env.PORT;
 
 mountRoutes(app);
 
-app.get('/', (req, res)=>{
+app.get('/', (req: Request, res: Response)=>{
     res.status(200).send("Hello World");
 });
 
