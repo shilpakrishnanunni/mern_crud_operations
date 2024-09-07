@@ -14,13 +14,14 @@ const HeaderComponent = () => {
 const Errand = (props) => {
     const { data, isLoading, isError } = hooks.useErrandTableData();
     console.log("data",data);
+    const errands = data?.errands;
 
     return (
         <div className="main">
             <HeaderComponent/>
             <div className="errand-container">
                 <ErrandForm />
-                <ErrandTable />
+                <ErrandTable errands={errands}/>
             </div>
         </div>
     );
