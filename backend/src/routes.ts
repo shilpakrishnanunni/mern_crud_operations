@@ -1,5 +1,5 @@
 import { Express, Router } from "express";
-import { addErrand, deleteErrand, endErrand, getAllErrands } from "./controller";
+import { addErrand, deleteErrand, updateErrandStatus, getAllErrands } from "./controller";
 
 
 const mountRoutes = (app: Express) => {
@@ -7,8 +7,8 @@ const mountRoutes = (app: Express) => {
 
     router.get("/get-all-errands", getAllErrands);
     router.post("/add-errand", addErrand);
-    router.patch("end-errand", endErrand);
-    router.delete("delete-errand", deleteErrand);
+    router.patch("/update-errand-status", updateErrandStatus);
+    router.delete("/delete-errand", deleteErrand);
 
     app.use(router);
 };

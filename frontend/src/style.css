@@ -1,17 +1,18 @@
 .main {
     height: 100vh;
     width: 100%;
-    background-color: aqua;
+    background-color: rgb(255, 248, 235);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .errand-container {
     width: 700px;
     height: 500px;
-    background-color: brown;
+    background-color: rgb(150, 185, 103);
 }
 
 .form-container form{
@@ -28,19 +29,34 @@
 
 .input-field input{
     height: 2rem;
+    width: 15rem;
     border: none;
 }
 
 .submit-button button{
     border: none;
-    background-color: rgb(37, 189, 138);
+    background-color: rgb(70, 107, 10);
     color: aliceblue;
     height: 2rem;
     padding: 10px;
 }
 
 .table-container {
-    background-color: bisque;
+    background-color: rgb(255, 237, 214);
     margin: 10px;
     border: 1px solid black;
+}
+
+.table-container table {
+    width: 100%;
+    padding: 10px;
+    
+}
+
+thead {
+    padding: 10px;
+}
+
+.row-faded {
+    color: grey;
 }

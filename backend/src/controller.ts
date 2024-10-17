@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Errand from "./models/errands"
+import { convertToLocalTZ } from "./utils";
 
 
 export const getAllErrands = async (req: Request, res: Response) => {
@@ -8,7 +9,7 @@ export const getAllErrands = async (req: Request, res: Response) => {
         id: row._id,
         description: row.description,
         status: row.status,
-        date: row.updatedAt
+        date: convertToLocalTZ(row.updatedAt)
     }));
     console.log(errands)
     return res.json({ success: true, errands });
@@ -23,11 +24,17 @@ export const addErrand = async (req: Request, res: Response) => {
     return res.json({ success: true });
 };
 
-export const endErrand = async (req: Request, res: Response) => {
-    const { id } = req.body;
-    await Errand.findByIdAndUpdate(id, {
-        status: false
+export const updateErrandStatus = async (req: Request, res: Response) => {
+    console.log("req.body",req.body);
+    console.log("req.params",req.params);
+    
+    
+    const { id, status } = req.body;
+    console.log(id, status)
+    const result = await Errand.findByIdAndUpdate(id, {
+        status
     });
+    console.log(result)
     return res.json({ success: true });
 };
 
