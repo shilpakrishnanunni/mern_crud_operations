@@ -43,10 +43,31 @@ const hooks = {
                 return response?.data;
             },
             onSuccess: () => {
-                queryClient.invalidateQueries(['errands-data']);
+                queryClient.invalidateQueries({ queryKey:  ['errands-data'], exact: true });
             },
             onError: (error) => {
                 console.error('Error updating errand status:', error);
+            }
+        })
+    },
+    useCreateErrand: () => {
+        const queryClient = useQueryClient();
+        return useMutation({
+            mutationFn: async (data: { description: string }) => {
+                const response = await axios.request({
+                    method: 'post',
+                    url: `${defaults.baseURL}add-errand`,
+                    data: {
+                        description: data.description
+                    }
+                });
+                return response?.data;
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey:  ['errands-data'], exact: true });
+            },
+            onError: (error) => {
+                console.error('Error creating errand:', error);
             }
         })
     }
