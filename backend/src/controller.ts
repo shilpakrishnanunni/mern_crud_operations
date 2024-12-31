@@ -11,7 +11,6 @@ export const getAllErrands = async (req: Request, res: Response) => {
         status: row.status,
         date: convertToLocalTZ(row.updatedAt)
     }));
-    console.log(errands)
     return res.json({ success: true, errands });
 };
 
@@ -25,9 +24,6 @@ export const addErrand = async (req: Request, res: Response) => {
 };
 
 export const updateErrandStatus = async (req: Request, res: Response) => {
-    console.log("req.body",req.body);
-    console.log("req.params",req.params);
-    
     
     const { id, status } = req.body;
     console.log(id, status)
