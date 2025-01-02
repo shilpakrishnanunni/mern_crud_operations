@@ -82,6 +82,26 @@ th {
     text-align: left;
 }
 
+tr {
+    height: 2rem;
+}
+
 .row-faded {
     color: grey;
+}
+
+.errand-row .delete-cell {
+    text-align: center;
+    position: relative;
+}
+
+.errand-row .delete-icon {
+    display: none;
+    color: grey;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.errand-row:hover .delete-icon {
+    display: inline-block;
 }
