@@ -70,6 +70,27 @@ const hooks = {
                 console.error('Error creating errand:', error);
             }
         })
+    },
+    useDeleteErrand: () => {
+        const queryClient = useQueryClient();
+        return useMutation({
+            mutationFn: async (data: { id: string }) => {
+                const response = await axios.request({
+                    method: 'delete',
+                    url: `${defaults.baseURL}delete-errand`,
+                    data: {
+                        id: data.id
+                    }
+                });
+                return response?.data;
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey:  ['errands-data'], exact: true });
+            },
+            onError: (error) => {
+                console.error('Error creating errand:', error);
+            }
+        })
     }
 };
 

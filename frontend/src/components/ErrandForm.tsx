@@ -13,11 +13,11 @@ const ErrandForm = (props) => {
     return (
         <div className="form-container">
             <form onSubmit={handleSubmit}>
-                <div className="input-field">
-                    <input type="text" placeholder="ENTER DESCRIPTION" name="description" />
+                <div className="input-field ">
+                    <input type="text" placeholder="What do you need to do?" name="description" className="description-field"/>
                 </div>
                 <div className="input-field submit-button">
-                    <button type="submit">ADD ERRAND</button>
+                    <button type="submit">ADD</button>
                 </div>
             </form>
         </div>
