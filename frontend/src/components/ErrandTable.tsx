@@ -28,7 +28,7 @@ const ErrandRow: React.FC<ErrandRowProps> = ({ row }) => {
     };
 
     return (
-        <tr className={`errand-row ${!row.status ? "row-faded" : ""}`}>
+        <tr className={`errand-row ${row.status ? "row-faded" : ""}`}>
             <td>{row.description}</td>
             <td>{row.date}</td>
             <td>
