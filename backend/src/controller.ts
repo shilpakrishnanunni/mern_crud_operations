@@ -18,7 +18,7 @@ export const addErrand = async (req: Request, res: Response) => {
     const { description } = req.body;
     await Errand.create({
         description,
-        status: true
+        status: false
     });
     return res.json({ success: true });
 };

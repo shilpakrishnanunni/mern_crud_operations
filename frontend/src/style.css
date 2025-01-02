@@ -29,16 +29,22 @@
 
 .input-field input{
     height: 2rem;
-    width: 15rem;
+    width: 17rem;
     border: none;
 }
 
+.submit-button {
+    position: relative;
+}
 .submit-button button{
     border: none;
     background-color: rgb(70, 107, 10);
     color: aliceblue;
     height: 2rem;
-    padding: 10px;
+    /* padding: 10px; */
+    position: absolute;
+    width: 7rem;
+    top: -10px;
 }
 
 .table-container {
