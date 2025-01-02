@@ -33,6 +33,10 @@
     border: none;
 }
 
+.description-field {
+    padding: 0px 10px;
+}
+
 .submit-button {
     position: relative;
 }
@@ -56,11 +60,26 @@
 .table-container table {
     width: 100%;
     padding: 10px;
-    
+    height: 300px;
 }
+
+thead, tbody { display: block; }
 
 thead {
     padding: 10px;
+}
+
+tbody {
+    height: 315px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+tbody td, thead th {
+    width: 25%;
+}
+
+th {
+    text-align: left;
 }
 
 .row-faded {
