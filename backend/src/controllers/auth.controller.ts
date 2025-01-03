@@ -1,4 +1,4 @@
-import * as crypto from 'crypto';
+import * as crypto from "crypto";
 import type { NextFunction, Request, Response } from "express";
 import User from "../models/user";
 import OTP from "../models/otp";
@@ -9,6 +9,7 @@ interface ReqBody {}
 
 interface ResBody {
     email: string;
+    otp: string;
 }
 
 interface ReqQuery {
@@ -24,37 +25,41 @@ export const checkEmail = async (
         const { email } = req.query;
 
         const userData = await User.findOne({ email: email });
-        
-        let otp: string = crypto.randomInt(1001, 9999).toString() ;
+
+        let otp: string = crypto.randomInt(1001, 9999).toString(); // TODO change this
         let result = await OTP.findOne({ otp: otp });
-        while(result) {
-            otp = crypto.randomInt(1001, 9999).toString() ;
+        while (result) {
+            otp = crypto.randomInt(1001, 9999).toString(); // TODO change this
             await OTP.findOne({ otp: otp });
         }
-        
-        await OTP.create({ email: email, otp: otp});
+
+        await OTP.create({ email: email, otp: otp });
         res.status(200).json({
             success: true,
-            message: 'OTP sent successfully',
+            message: "OTP sent successfully",
             otp,
-            newUser: !Boolean(userData)
-          });
+            newUser: !Boolean(userData),
+        });
     } catch (error) {
         return next(error);
     }
 };
 
-export const otpVerification = async (
+export const login = async (
     req: Request<ReqParams, ReqBody, ResBody, ReqQuery>,
-    res: Response
+    res: Response,
+    next: NextFunction
 ) => {
-    const { otp } = req.query;
+    try {
+        const { otp, email } = req.body;
 
-    const userData = await User.findOne({email: email});
-    if (!userData) {
-        // send welcome mail with otp
-        return res.json({message: "new user"});
+        const otpVerification = await OTP.findOne({ email: email, otp: otp });
+        if (!otpVerification) {
+            return res.status(422).json({ message: "Invalid OTP." });
+        }
+    
+        // TODO auth and login user.
+    } catch (error) {
+        return next(error);
     }
-    // send otp to mail
-    return res.json({message: "redirect to otp verification"})
 };
