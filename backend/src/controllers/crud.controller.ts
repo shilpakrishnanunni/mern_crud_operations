@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import Errand from "./models/errands"
-import { convertToLocalTZ } from "./utils";
+import Errand from "../models/errands"
+import { convertToLocalTZ } from "../utils";
 
 
 export const getAllErrands = async (req: Request, res: Response) => {
