@@ -2,6 +2,7 @@ import * as crypto from "crypto";
 import type { NextFunction, Request, Response } from "express";
 import User from "../models/user";
 import OTP from "../models/otp";
+import { generateJWTToken } from "../utils";
 
 interface ReqParams {}
 
@@ -10,6 +11,7 @@ interface ReqBody {}
 interface ResBody {
     email: string;
     otp: string;
+    newUser: boolean;
 }
 
 interface ReqQuery {
@@ -51,7 +53,7 @@ export const login = async (
     next: NextFunction
 ) => {
     try {
-        const { otp, email } = req.body;
+        const { otp, email, newUser } = req.body;
 
         const otpVerification = await OTP.findOne({ email: email, otp: otp });
         if (!otpVerification) {
@@ -59,6 +61,13 @@ export const login = async (
         }
     
         // TODO auth and login user.
+        const user = await User.findOneAndUpdate(
+            {email},
+            {email, status: 1},
+            {upsert: true, new: true}
+        );
+        const token = await generateJWTToken(user._id)
+        return res.json({token: token});
     } catch (error) {
         return next(error);
     }

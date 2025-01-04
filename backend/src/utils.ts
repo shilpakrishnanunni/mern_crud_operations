@@ -1,5 +1,7 @@
 import moment from "moment-timezone";
 import nodemailer from "nodemailer";
+import jwt from "jsonwebtoken";
+import { ObjectId } from "mongodb";
 
 const getTimeZone = (): string => {
     const timeZone: string | undefined = process.env.TIME_ZONE;
@@ -30,7 +32,7 @@ export const mailSender = async (email: string, title: string, body: string) => 
                 pass: process.env.MAIL_PASSWORD
             },
             tls: {
-                ciphers:'SSLv3'
+                ciphers: 'SSLv3'
             }
         });
         let info = await transporter.sendMail({
@@ -41,7 +43,20 @@ export const mailSender = async (email: string, title: string, body: string) => 
         });
         return info;
     } catch (error) {
-        console.log("Error from mailSender",error);
+        console.log("Error from mailSender", error);
+        throw error;
+    }
+}
+
+export const generateJWTToken = async (userId: ObjectId) => {
+    try {
+        let data = {
+            userId: userId,
+            time: Date.now()
+        }
+        const token = jwt.sign(data, process.env.JWT_SECRET_KEY);
+        return token;
+    } catch (error) {
         throw error;
     }
 }
