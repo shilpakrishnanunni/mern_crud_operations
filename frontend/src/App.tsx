@@ -1,12 +1,15 @@
-import { useState } from 'react'
-import Errand from './components/Errand'
-import './App.css'
+import Errand from './components/errand/Errand';
+import './App.css';
+import "./style.css";
 
 function App() {
 
 
   return (
-    <Errand/>
+    <div className='main'>
+
+      <Errand />
+    </div>
   )
 }
 

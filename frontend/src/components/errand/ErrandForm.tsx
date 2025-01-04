@@ -1,5 +1,5 @@
-import hooks from "../hooks";
-import "../style.css";
+import hooks from "../../hooks.tsx";
+import "./style.css";
 
 const ErrandForm = (props) => {
     const formSubmission = hooks.useCreateErrand();

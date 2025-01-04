@@ -1,6 +1,6 @@
 import { useState } from "react";
-import hooks from "../hooks.tsx";
-import "../style.css";
+import hooks from "../../hooks.tsx";
+import "./style.css";
 
 interface Errand {
     id: string;

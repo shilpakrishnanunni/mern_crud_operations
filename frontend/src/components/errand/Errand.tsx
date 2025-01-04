@@ -1,7 +1,7 @@
-import ErrandForm from "./ErrandForm";
-import ErrandTable from "./ErrandTable";
-import "../style.css";
-import hooks from "../hooks.tsx";
+import ErrandForm from "./ErrandForm.tsx";
+import ErrandTable from "./ErrandTable.tsx";
+import "./style.css";
+import hooks from "../../hooks.tsx";
 
 const HeaderComponent = () => {
     return (
