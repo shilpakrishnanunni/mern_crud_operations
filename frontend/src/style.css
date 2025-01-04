@@ -29,16 +29,26 @@
 
 .input-field input{
     height: 2rem;
-    width: 15rem;
+    width: 17rem;
     border: none;
 }
 
+.description-field {
+    padding: 0px 10px;
+}
+
+.submit-button {
+    position: relative;
+}
 .submit-button button{
     border: none;
     background-color: rgb(70, 107, 10);
     color: aliceblue;
     height: 2rem;
-    padding: 10px;
+    /* padding: 10px; */
+    position: absolute;
+    width: 7rem;
+    top: -10px;
 }
 
 .table-container {
@@ -50,13 +60,48 @@
 .table-container table {
     width: 100%;
     padding: 10px;
-    
+    height: 300px;
 }
+
+thead, tbody { display: block; }
 
 thead {
     padding: 10px;
 }
 
+tbody {
+    height: 315px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+tbody td, thead th {
+    width: 25%;
+}
+
+th {
+    text-align: left;
+}
+
+tr {
+    height: 2rem;
+}
+
 .row-faded {
     color: grey;
+}
+
+.errand-row .delete-cell {
+    text-align: center;
+    position: relative;
+}
+
+.errand-row .delete-icon {
+    display: none;
+    color: grey;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.errand-row:hover .delete-icon {
+    display: inline-block;
 }

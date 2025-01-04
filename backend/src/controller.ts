@@ -4,7 +4,9 @@ import { convertToLocalTZ } from "./utils";
 
 
 export const getAllErrands = async (req: Request, res: Response) => {
-    const data = await Errand.find({}).sort({ createdAt: "desc" });
+    const data = await Errand.aggregate([
+        { $sort: { status: 1, createdAt: -1 } }
+    ]);
     const errands = data.map(row => ({
         id: row._id,
         description: row.description,
@@ -18,7 +20,7 @@ export const addErrand = async (req: Request, res: Response) => {
     const { description } = req.body;
     await Errand.create({
         description,
-        status: true
+        status: false
     });
     return res.json({ success: true });
 };
