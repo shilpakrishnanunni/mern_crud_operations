@@ -12,7 +12,7 @@ const LoginForm = (props) => {
                     id="email"
                     placeholder="Please enter your email."
                     value={email}
-                    onChange={setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </label>
 
@@ -24,7 +24,7 @@ const LoginForm = (props) => {
 const Login = (props) => {
     const [email, setEmail] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
 
     }
